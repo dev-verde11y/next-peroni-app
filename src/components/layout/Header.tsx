@@ -75,7 +75,7 @@ const Header = () => {
                   Hiça Peroni
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                  Advocacia Especializada
+                  Advogada Especializada
                 </p>
               </Link>
             </div>
@@ -87,7 +87,6 @@ const Header = () => {
               { name: "Início", href: "/" },
               { name: "Sobre", href: "/sobre" },
               { name: "Áreas de Atuação", href: "/especialidades" }, // Nome mais formal
-              { name: "Casos de Sucesso", href: "/casos" }, // Nome mais impactante
               { name: "Artigos", href: "/blog" }, // Termo mais profissional
               { name: "Contato", href: "/contato" },
             ].map((item) => (
@@ -189,7 +188,7 @@ const Header = () => {
           }`}
         >
           <div className="py-2 border-t border-gray-200 dark:border-gray-800">
-            <nav className="flex flex-col space-y-2">
+            <nav className="flex flex-col space-y-1 p-2">
               {[
                 { name: "Início", href: "/" },
                 { name: "Sobre", href: "/sobre" },
@@ -211,7 +210,7 @@ const Header = () => {
               ))}
 
               {/* CTA do Menu Mobile */}
-              <div className="py-2 border-t border-gray-200 dark:border-gray-800">
+              <div className="border-t border-gray-200 dark:border-gray-800">
                 <Link
                   href="/contato"
                   className="flex items-center justify-center px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow-md transition-colors duration-300"

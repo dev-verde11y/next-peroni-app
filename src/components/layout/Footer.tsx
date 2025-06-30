@@ -26,19 +26,19 @@ const Footer = () => {
                     Hiça Peroni
                   </h1>
                   <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                    Advocacia Especializada
+                    Advogada Especializada
                   </p>
                 </Link>
               </div>
             </div>
 
             <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md leading-relaxed text-sm md:text-base">
-              Com mais de 15 anos de dedicação, somos especialistas em Direito Civil, Trabalhista e Empresarial. Oferecemos soluções jurídicas personalizadas, buscando excelência e resultados eficazes para cada cliente.
+              Somos especialistas em Direito Civil, Trabalhista e Empresarial. Oferecemos soluções jurídicas personalizadas, buscando excelência e resultados eficazes para cada cliente.
             </p>
 
             <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <p>
-                <span className="font-semibold text-gray-700 dark:text-gray-200">OAB/SP:</span> 123.456
+                <span className="font-semibold text-gray-700 dark:text-gray-200">OAB/GO:</span> 123.456
               </p>
               <p>
                 <span className="font-semibold text-gray-700 dark:text-gray-200">CNPJ:</span> 12.345.678/0001-90
@@ -114,7 +114,6 @@ const Footer = () => {
               {[
                 { name: "Sobre", href: "/sobre" },
                 { name: "Áreas de Atuação", href: "/especialidades" }, // Nome consistente
-                { name: "Casos de Sucesso", href: "/casos" }, // Nome consistente
                 { name: "Artigos", href: "/blog" }, // Nome consistente
                 { name: "Contato", href: "/contato" },
               ].map((item) => (
@@ -159,7 +158,7 @@ const Footer = () => {
                     Telefone
                   </p>
                   <a href="tel:+551199999999" className="text-gray-900 dark:text-gray-100 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300">
-                    +55 (11) 99999-9999
+                    +55 (62) 98169-6579
                   </a>
                 </div>
               </div>
@@ -217,9 +216,8 @@ const Footer = () => {
                     Localização
                   </p>
                   <address className="not-italic text-gray-900 dark:text-gray-100 font-medium leading-relaxed">
-                    Av. Exemplo, 1234, Centro
-                    <br />
-                    São Paulo, SP - CEP 01234-567
+                    Rua. Antonio Luiz Garavelo
+                    Goiânia, GO <br />CEP 74968-505
                   </address>
                 </div>
               </div>
@@ -255,7 +253,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-500 dark:text-gray-400 text-sm text-center md:text-left">
               &copy; {new Date().getFullYear()}{" "} {/* Atualiza o ano automaticamente */}
-              <span className="font-semibold text-gray-700 dark:text-gray-200">Hiça Peroni Advocacia</span>.
+              <span className="font-semibold text-gray-700 dark:text-gray-200">Hiça Peroni</span>.
               Todos os direitos reservados.
             </p>
             <div className="flex space-x-6 text-sm">
