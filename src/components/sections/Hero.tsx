@@ -5,21 +5,14 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link'; // Importe Link, pois agora ele será usado para os botões
 
 const Hero = () => {
-  // Estado para controlar a animação de entrada dos elementos
-  // 'true' para que a animação ocorra assim que o componente for montado
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true); // Ativa a visibilidade para a animação de entrada
-  }, []); // O array vazio assegura que isso roda apenas uma vez, na montagem do componente
+    setIsVisible(true);
+  }, []); 
 
   return (
     <section className="relative min-h-screen flex items-center bg-white text-gray-900 overflow-hidden py-16 md:py-24">
-      {/* Fundo e Gradientes Sutis
-        Mantidos para um visual premium e moderno, agora mais claros por padrão.
-        Removi 'dark:bg-gray-900' para garantir um fundo claro consistente.
-        Ajustei a opacidade dos gradientes para serem mais suaves no fundo branco.
-      */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
@@ -27,18 +20,11 @@ const Hero = () => {
         }}></div>
       </div>
 
-      {/* Elementos Flutuantes de Fundo
-        Decorativos e sutis, com menor opacidade para se integrarem melhor ao fundo claro.
-        São puramente visuais e não interativos.
-      */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      {/* Conteúdo Principal da Seção Hero
-        Centraliza o conteúdo e aplica margens para responsividade.
-      */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
