@@ -32,7 +32,7 @@ const Hero = () => {
         <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-gray-900 dark:text-white">Seus Direitos,</span>
+            <span className="text-gray-900 dark:text-white">TESTE Seus Direitos,</span>
             <br />
             <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent animate-gradient">
               Nossa Prioridade
