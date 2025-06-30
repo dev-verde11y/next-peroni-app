@@ -1,174 +1,229 @@
 // components/layout/Header.tsx
-'use client';
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+"use client"; // Necessário para componentes que usam hooks do React ou interagem com o DOM do navegador
+
+import React, { useState, useEffect } from "react";
+import Link from "next/link"; // Componente Link do Next.js para navegação otimizada
 
 const Header = () => {
+  // Estados para controlar o tema (claro/escuro), abertura do menu mobile e efeito de scroll
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Detectar scroll para efeito glassmorphism
+  // Efeito para detectar o scroll da página e aplicar o estilo "glassmorphism"
+  // Também detecta a preferência de tema do sistema operacional na montagem inicial
   useEffect(() => {
     const handleScroll = () => {
+      // Atualiza o estado isScrolled se a página tiver rolado mais de 20px
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  // Toggle tema
+    // Adiciona o event listener para o scroll
+    window.addEventListener("scroll", handleScroll);
+
+    // Verifica a preferência de cor do sistema para definir o tema inicial
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.documentElement.classList.add("dark"); // Adiciona a classe 'dark' ao <html>
+      setIsDark(true); // Atualiza o estado isDark
+    }
+
+    // Função de limpeza: remove o event listener quando o componente é desmontado
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []); // O array vazio assegura que o efeito rode apenas uma vez (na montagem)
+
+  // Função para alternar o tema (claro/escuro)
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
+    // Usa a forma funcional do setState para garantir que o estado anterior seja o correto
+    setIsDark((prevIsDark) => {
+      const newIsDark = !prevIsDark; // Inverte o estado atual do tema
+      if (newIsDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      // Opcional: Você pode salvar a preferência do usuário no localStorage aqui
+      // localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+      return newIsDark; // Retorna o novo estado
+    });
   };
 
   return (
-    <header 
+    <header
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 shadow-lg border-b border-gray-200/20 dark:border-gray-700/20' 
-          : 'bg-white dark:bg-gray-900'
+        isScrolled
+          ? "backdrop-blur-md bg-white/90 dark:bg-gray-900/90 shadow-md border-b border-gray-100/30 dark:border-gray-800/30" // Efeito "glassmorphism" ao rolar
+          : "bg-white dark:bg-gray-900" // Fundo sólido quando no topo
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          
-          {/* Logo/Nome da Advogada */}
-          <div className="flex items-center space-x-4">
+        <div className="flex justify-between items-center h-18 md:h-20"> {/* Altura do cabeçalho */}
+          {/* Seção da Logo e Nome da Advogada */}
+          <div className="flex items-center space-x-3 md:space-x-4">
             <div className="flex-shrink-0">
-              {/* Placeholder para logo futura */}
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">HP</span>
-              </div>
+              <Link href="/" aria-label="Página Inicial">
+                <img
+                  src="/images/logo.jpeg"
+                  alt="Logotipo de Hiça Peroni Advocacia"
+                  className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-md shadow" // Logo com cantos sutilmente arredondados e sombra
+                />
+              </Link>
             </div>
-            <div className="hidden sm:block">
+            <div className="hidden sm:block"> {/* Oculta em telas muito pequenas */}
               <Link href="/" className="group">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 bg-clip-text text-transparent group-hover:from-amber-500 group-hover:to-orange-500 transition-all duration-300">
+                <h1 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-100 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                   Hiça Peroni
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+                <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
                   Advocacia Especializada
                 </p>
               </Link>
             </div>
           </div>
 
-          {/* Navegação Desktop */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          {/* Navegação Principal (Desktop) */}
+          <nav className="hidden lg:flex items-center space-x-6 md:space-x-8">
             {[
-              { name: 'Início', href: '/' },
-              { name: 'Sobre', href: '/sobre' },
-              { name: 'Especialidades', href: '/especialidades' },
-              { name: 'Casos', href: '/casos' },
-              { name: 'Blog', href: '/blog' },
-              { name: 'Contato', href: '/contato' }
+              { name: "Início", href: "/" },
+              { name: "Sobre", href: "/sobre" },
+              { name: "Áreas de Atuação", href: "/especialidades" }, // Nome mais formal
+              { name: "Casos de Sucesso", href: "/casos" }, // Nome mais impactante
+              { name: "Artigos", href: "/blog" }, // Termo mais profissional
+              { name: "Contato", href: "/contato" },
             ].map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 font-medium transition-colors duration-300 group"
+                className="relative text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-300 group"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 group-hover:w-full transition-all duration-300"></span>
+                {/* Linha de destaque que aparece ao passar o mouse */}
+                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-700 dark:bg-blue-300 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
           </nav>
 
-          {/* Ações do Header */}
-          <div className="flex items-center space-x-4">
-            
-            {/* Toggle Dark/Light Mode */}
+          {/* Ações do Cabeçalho (Botão de Tema, CTA, Menu Mobile) */}
+          <div className="flex items-center space-x-3 md:space-x-4">
+            {/* Botão de alternar Dark/Light Mode */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
-              aria-label="Toggle theme"
+              className="p-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              aria-label="Alternar tema" // Descrição para leitores de tela
             >
               {isDark ? (
-                <svg className="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                // Ícone para o modo claro (sol) - aparece quando o tema é escuro
+                <svg
+                  className="w-5 h-5 text-blue-400" // Cor azul para o sol
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                // Ícone para o modo escuro (lua) - aparece quando o tema é claro
+                <svg
+                  className="w-5 h-5 text-gray-600" // Cor cinza neutra para a lua
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
               )}
             </button>
 
-            {/* CTA Button */}
+            {/* Botão de Chamada para Ação (CTA) - Desktop */}
             <div className="hidden md:block">
               <Link
                 href="/contato"
-                className="relative px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 overflow-hidden group"
+                className="relative px-4 py-2 md:px-5 md:py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow-md transition-colors duration-300"
               >
-                <span className="relative z-10">Consulta Gratuita</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                Agendar Consulta
               </Link>
             </div>
 
-            {/* Menu Mobile Button */}
+            {/* Botão para abrir/fechar o Menu Mobile */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
-              aria-label="Toggle menu"
+              className="lg:hidden p-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              aria-label="Abrir menu de navegação"
             >
-              <svg 
-                className={`w-6 h-6 text-gray-600 dark:text-gray-300 transform transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className={`w-6 h-6 text-gray-600 dark:text-gray-300 transform transition-transform duration-300 ${
+                  isMenuOpen ? "rotate-90" : "" // Rotação para o ícone de 'X'
+                }`}
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
                 {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  // Ícone de "X" quando o menu está aberto
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  // Ícone de hambúrguer quando o menu está fechado
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 )}
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Menu Mobile */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-          <div className="py-4 border-t border-gray-200 dark:border-gray-700">
-            <nav className="flex flex-col space-y-4">
+        {/* Menu Mobile (Conteúdo) */}
+        <div
+          className={`lg:hidden transition-all duration-300 overflow-hidden ${
+            isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0" // Controla a altura e opacidade para efeito de slide/fade
+          }`}
+        >
+          <div className="py-2 border-t border-gray-200 dark:border-gray-800">
+            <nav className="flex flex-col space-y-2">
               {[
-                { name: 'Início', href: '/' },
-                { name: 'Sobre', href: '/sobre' },
-                { name: 'Especialidades', href: '/especialidades' },
-                { name: 'Casos', href: '/casos' },
-                { name: 'Blog', href: '/blog' },
-                { name: 'Contato', href: '/contato' }
+                { name: "Início", href: "/" },
+                { name: "Sobre", href: "/sobre" },
+                { name: "Áreas de Atuação", href: "/especialidades" },
+                { name: "Casos de Sucesso", href: "/casos" },
+                { name: "Artigos", href: "/blog" },
+                { name: "Contato", href: "/contato" },
               ].map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="group flex items-center px-4 py-3 text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl font-medium transition-all duration-300 transform hover:translate-x-2"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex items-center px-4 py-3 text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 bg-gray-50 dark:bg-gray-900 rounded-md font-medium transition-colors duration-300"
+                  onClick={() => setIsMenuOpen(false)} // Fecha o menu ao clicar em um link
                 >
-                  <span className="w-2 h-2 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   {item.name}
+                  {/* Linha de destaque para links do menu mobile */}
+                  <span className="absolute left-0 w-0 h-0.5 bg-blue-700 dark:bg-blue-300 group-hover:w-full transition-all duration-300"></span>
                 </Link>
               ))}
-              
-              {/* CTA Mobile */}
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+
+              {/* CTA do Menu Mobile */}
+              <div className="py-2 border-t border-gray-200 dark:border-gray-800">
                 <Link
                   href="/contato"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-center px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow-md transition-colors duration-300"
+                  onClick={() => setIsMenuOpen(false)} // Fecha o menu ao clicar no CTA
                 >
-                  Consulta Gratuita
+                  Agendar Consulta
                 </Link>
               </div>
             </nav>
           </div>
         </div>
       </div>
-
-
     </header>
   );
 };
