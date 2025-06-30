@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="flex items-center space-x-4 mb-6">
               <div className="flex-shrink-0">
                 <Link href="/" aria-label="Página Inicial">
-                  <img
+                  <Image
                     src="/images/logo.jpeg"
                     alt="Logotipo de Hiça Peroni Advocacia"
                     className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-md shadow"
