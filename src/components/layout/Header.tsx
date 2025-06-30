@@ -1,8 +1,9 @@
 // components/layout/Header.tsx
-"use client"; // Necessário para componentes que usam hooks do React ou interagem com o DOM do navegador
+"use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link"; // Componente Link do Next.js para navegação otimizada
+import Link from "next/link";
+import Image from 'next/image';
 
 const Header = () => {
   // Estados para controlar o tema (claro/escuro), abertura do menu mobile e efeito de scroll
@@ -62,7 +63,7 @@ const Header = () => {
           <div className="flex items-center space-x-3 md:space-x-4">
             <div className="flex-shrink-0">
               <Link href="/" aria-label="Página Inicial">
-                <img
+                <Image
                   src="/images/logo.jpeg"
                   alt="Logotipo de Hiça Peroni Advocacia"
                   className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-md shadow" // Logo com cantos sutilmente arredondados e sombra

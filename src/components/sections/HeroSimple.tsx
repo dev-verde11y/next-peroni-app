@@ -1,13 +1,13 @@
 // components/sections/Hero.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link'; // Importe Link se for usar botões ou links
+// import Link from 'next/link';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true); // Controla a animação de entrada dos elementos
+    setIsVisible(true);
   }, []);
 
   return (

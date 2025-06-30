@@ -1,26 +1,25 @@
 // components/layout/Footer.tsx
 import React from "react";
 import Link from "next/link";
+import Image from 'next/image';
 
 const Footer = () => {
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-16"> {/* Aumentado o gap para melhor espaçamento */}
-          {/* Informações principais da Advogada */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-16">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-4 mb-6">
-              {/* Logo e Nome da Advogada - CONSISTENTE COM O HEADER */}
               <div className="flex-shrink-0">
                 <Link href="/" aria-label="Página Inicial">
-                  <img
+                  <Image
                     src="/images/logo.jpeg"
                     alt="Logotipo de Hiça Peroni Advocacia"
-                    className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-md shadow" // Ajuste para rounded-md e shadow
+                    className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-md shadow"
                   />
                 </Link>
               </div>
-              <div> {/* Removido 'hidden sm:block' para o nome sempre aparecer no footer */}
+              <div>
                 <Link href="/" className="group">
                   <h1 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-100 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                     Hiça Peroni
@@ -46,13 +45,13 @@ const Footer = () => {
             </div>
 
             {/* Redes sociais */}
-            <div className="flex space-x-3 mt-8"> {/* Ajuste de espaçamento e margem superior */}
+            <div className="flex space-x-3 mt-8">
               <a
                 href="#"
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md group"
                 aria-label="LinkedIn"
-                target="_blank" // Abrir em nova aba
-                rel="noopener noreferrer" // Segurança
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
@@ -113,8 +112,8 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { name: "Sobre", href: "/sobre" },
-                { name: "Áreas de Atuação", href: "/especialidades" }, // Nome consistente
-                { name: "Artigos", href: "/blog" }, // Nome consistente
+                { name: "Áreas de Atuação", href: "/especialidades" }, 
+                { name: "Artigos", href: "/blog" },
                 { name: "Contato", href: "/contato" },
               ].map((item) => (
                 <li key={item.name}>
