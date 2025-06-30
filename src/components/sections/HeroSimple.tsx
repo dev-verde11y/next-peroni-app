@@ -40,10 +40,6 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl md:text-2xl mb-8 text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-            A Hiça Peroni Advogada.
-          </p>
-
-          <p className="text-xl md:text-2xl mb-8 text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
            Criar conteudo da página!
           </p>
 

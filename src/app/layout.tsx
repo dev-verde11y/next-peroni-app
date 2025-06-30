@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, ADLaM_Display } from "next/font/google";
 import "./globals.css";
 import MainLayout from '../components/layout/MainLayout';
 
@@ -13,9 +13,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// 1. Configure a fonte ADLaM Display
+const adlamDisplay = ADLaM_Display({
+  variable: "--font-adlam-display",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Hiça Peroni",
-  description: "Porfolio de Hiça Peroni Advogada",
+  description: "Portfólio de Hiça Peroni Advogada",
 };
 
 export default function RootLayout({
@@ -24,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} ${adlamDisplay.variable}`}>
       <body>
         <MainLayout>
           {children}
